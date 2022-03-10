@@ -1,4 +1,4 @@
-baseURL = 'http://example.org/'
+baseURL = '/'
 languageCode = 'en-us'
 title = 'Caddy Server Examples'
 theme = "paper"
