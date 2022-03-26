@@ -1,4 +1,5 @@
 baseURL = '/'
 languageCode = 'en-us'
 title = 'Caddy Server Examples'
-theme = "paper"
+theme = 'paper'
+googleAnalytics = 'G-85MRGJ5BTZ'
