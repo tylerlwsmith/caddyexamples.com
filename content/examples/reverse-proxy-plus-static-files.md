@@ -19,8 +19,25 @@ localhost:2015 {
         root * /app/srv/static
         file_server
     }
-    handle * {
+    handle {
         reverse_proxy localhost:8000
     }
+}
+```
+
+## Alternative approach
+
+**I don't recommend this approach,** but it's more-or-less what Lavoie recommended in the forum, and I've seen the general approach taken in many Caddyfile examples. It feels imperative and clunky compared to the `handle`-based approach.
+
+```Caddyfile
+localhost:2015 {
+    root * /srv/app
+    file_server /static/*
+
+    @notStatic {
+        not path /static/*
+    }
+
+    reverse_proxy @notStatic localhost:8000
 }
 ```
