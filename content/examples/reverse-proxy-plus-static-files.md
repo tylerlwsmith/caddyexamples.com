@@ -9,9 +9,13 @@ If you're deploying an app built with a framework like Django, you'll likely wan
 >
 > When using the Caddyfile, directives are handled in a specific order, described in the following docs page. Specifically, `reverse_proxy` is ordered higher than `file_server`, so it’ll get handled first if a request matched by it (most directives match _all requests_ by default).
 
-Caddy has features to override this ordering though. Specifically, it has the `handle` and `handle_path` directives. These will apply rules in order from the first matching `handle`.
+Thankfully, Caddy has features to override this ordering.
 
-The `handle_path` directive works like the handle directive, but it strips the matched path prefix.
+## Recommended approach
+
+Caddy includes a `handle` and `handle_path` directive. These will apply rules in order from the first matching `handle`.
+
+The `handle_path` directive works like the `handle` directive, but it strips the matched path prefix.
 
 ```Caddyfile
 localhost:2015 {
