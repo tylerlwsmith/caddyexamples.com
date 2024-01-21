@@ -12,7 +12,3 @@ This site was built with the [Hugo static site generator](https://gohugo.io/). Y
 - Variables
 - PHP with file server. Explain that if using docker, static files must be on Caddy server
 - Ports (localhost:80 vs port only syntax (:80))
-
-## Launch
-
-I will buy caddyexamples.com and launch the site once I have five examples done.
