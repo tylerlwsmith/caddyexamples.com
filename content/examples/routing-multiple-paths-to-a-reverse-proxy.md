@@ -3,7 +3,7 @@ title: "Routing multiple paths to a reverse proxy"
 draft: false
 ---
 
-Sometimes your app will need to route a handful of paths to one service and all other paths to another. Caddy's [named matchers](https://caddyserver.com/docs/caddyfile/matchers#named-matchers) allow you to define a set of [path directives](https://caddyserver.com/docs/caddyfile/matchers#path) then route them all to a single reverse proxy/
+Sometimes your app will need to route a handful of paths to one service and all other paths to another. Caddy's [named matchers](https://caddyserver.com/docs/caddyfile/matchers#named-matchers) allow you to define a set of [path directives](https://caddyserver.com/docs/caddyfile/matchers#path) then route them all to a single reverse proxy.
 
 ```Caddyfile
 :80 {
