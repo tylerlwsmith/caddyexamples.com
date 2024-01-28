@@ -19,13 +19,13 @@ The `handle_path` directive works like the `handle` directive, but it strips the
 
 ```Caddyfile
 localhost:2015 {
-    handle_path /static/* {
-        root * /app/srv/static
-        file_server
-    }
-    handle {
-        reverse_proxy localhost:8000
-    }
+	handle_path /static/* {
+		root * /app/srv/static
+		file_server
+	}
+	handle {
+		reverse_proxy localhost:8000
+	}
 }
 ```
 
@@ -35,13 +35,13 @@ localhost:2015 {
 
 ```Caddyfile
 localhost:2015 {
-    root * /srv/app
-    file_server /static/*
+	root * /srv/app
+	file_server /static/*
 
-    @notStatic {
-        not path /static/*
-    }
+	@notStatic {
+		not path /static/*
+	}
 
-    reverse_proxy @notStatic localhost:8000
+	reverse_proxy @notStatic localhost:8000
 }
 ```

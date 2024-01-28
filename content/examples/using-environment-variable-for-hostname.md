@@ -7,18 +7,18 @@ Setting a site's hostname as an environment variable in a Caddyfile enables the 
 
 ```Caddyfile
 {$SITE_HOSTNAME:localhost:80} {
-    # bind allows access to containers from host when running Caddy in Docker
-    bind 0.0.0.0
+	# bind allows access to containers from host when running Caddy in Docker
+	bind 0.0.0.0
 
-    respond "Hello, world!"
+	respond "Hello, world!"
 }
 
 # Handle redirects from www to non-www
 www.{$SITE_HOSTNAME:localhost:80} {
-    # bind allows access to containers from host when running Caddy in Docker
-    bind 0.0.0.0
+	# bind allows access to containers from host when running Caddy in Docker
+	bind 0.0.0.0
 
-    redir {scheme}://{$SITE_HOSTNAME:localhost:80}{uri}
+	redir {scheme}://{$SITE_HOSTNAME:localhost:80}{uri}
 }
 ```
 

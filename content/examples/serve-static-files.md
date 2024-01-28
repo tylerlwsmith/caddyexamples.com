@@ -11,7 +11,7 @@ To configure Caddy to _only_ serve static files, use the `file_server` directive
 
 ```Caddyfile
 localhost:2015 {
-    root * /srv/static-files
-    file_server
+	root * /srv/static-files
+	file_server
 }
 ```

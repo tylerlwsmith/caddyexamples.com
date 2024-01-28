@@ -11,7 +11,7 @@ Because of this, you must use the `bind` directive.
 
 ```Caddyfile
 :80 {
-    bind 0.0.0.0
-    respond "Hello, world!"
+	bind 0.0.0.0
+	respond "Hello, world!"
 }
 ```

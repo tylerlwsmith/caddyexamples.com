@@ -10,8 +10,8 @@ In this situation, Caddy can be useful as a reverse-proxy in front of your local
 If you choose a domain that Caddy recognizes as localhost, it will automatically sign the
 certificate with its internal CA.
 
-However, if you need a certificate for a specific domain, it might fail with the following
-error:
+However, if you need a certificate for a specific domain, it might fail with the following error:
+
 ```log
 tls.issuance.acme.acme_client    challenge failed
 ```
@@ -21,9 +21,9 @@ In that case, you can force Caddy to use a self-issued certificate with the
 
 ```Caddyfile
 local-alias.my-company.com {
-    reverse_proxy * http://localhost:1234
-    tls internal {
-        on_demand
-    }
+	reverse_proxy * http://localhost:1234
+	tls internal {
+		on_demand
+	}
 }
 ```

@@ -9,6 +9,6 @@ Returning a plain text response with Caddy can be useful for debugging, ensuring
 
 ```Caddyfile
 localhost:8080 {
-    respond "Hello, world!"
+	respond "Hello, world!"
 }
 ```
