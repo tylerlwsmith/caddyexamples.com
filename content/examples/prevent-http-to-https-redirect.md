@@ -3,7 +3,7 @@ title: "Prevent automatic http-to-https redirect"
 draft: false
 ---
 
-Occasionally while developing an app locally, you need to build an isolated feature that _requires_ `https` (such as a [service worker](https://developer.mozilla.org/en-US/docs/Web/API/Service_Worker_API/Using_Service_Workers#setting_up_to_play_with_service_workers)). Using a self-signed certificate locally introduces the annoyance of Chrome returning an error every few hours that says `Your connection is not private`.
+Occasionally while developing a web app locally, you need to build an isolated feature that _requires_ `https` (such as a [service worker](https://developer.mozilla.org/en-US/docs/Web/API/Service_Worker_API/Using_Service_Workers#setting_up_to_play_with_service_workers)). Using a self-signed certificate locally introduces the annoyance of Chrome returning an error every few hours that says `Your connection is not private`.
 
 It would be nice to only deal with those self-signed `https` warnings when you absolutely needed to use `https`, then access the site warning-free via `http` the rest of the time. However, Caddy automatically adds an `http`-to-`https` redirect for all domain [site addresses](https://caddyserver.com/docs/caddyfile/concepts#addresses).
 
