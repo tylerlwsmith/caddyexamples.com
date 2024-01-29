@@ -3,7 +3,13 @@ title: "Using an environment variable for the hostname with a www redirect and l
 draft: false
 ---
 
-Setting a site's hostname as an environment variable in a Caddyfile enables the usage of non-https `localhost` when developing locally, then switching to a proper domain name in production while reaping the benefits of Caddy's automatic TLS certificates.
+Ideally, a single Caddyfile could handle the following use cases without relying on different files for development and production:
+
+- When running locally, develop using the `localhost` hostname without having to provision certificates.
+- When running in production, automatically provision TLS certificates for the appropriate hostnames.
+- Redirect `www` to non-`www` or vice versa.
+
+Using an environment variable in the [site address](https://caddyserver.com/docs/caddyfile/concepts#addresses) allows Caddy to support all of these use cases with a single Caddyfile.
 
 ```Caddyfile
 {$SITE_HOSTNAME:localhost:80} {
@@ -22,12 +28,16 @@ www.{$SITE_HOSTNAME:localhost:80} {
 }
 ```
 
-During development, you could run this without providing the `SITE_HOSTNAME` variable and it would default to `localhost`. If you set `SITE_HOSTNAME` to `example.com` when running in production, Caddy would automatically provision the TLS certificates, allowing you to run the same Caddyfile in development and production.
+During development, no value is needed for the `$SITE_HOSTNAME` environment variable: it will default to `localhost:80`. Because the default `http` port `:80` is specified, Caddy will serve the site strictly over `http` without attempting to provision a certificate.
+
+In production, the `$SITE_HOSTNAME` environment variable should be set to the appropriate domain (example: `yoursite.com`). Caddy will then automatically provision the TLS certificates, allowing you to run the same Caddyfile in both development and production.
 
 ## Gotchas
 
-**The redirect won't work correctly if you're mapping to a different port on the host than the port running inside a container.** If Caddy is running on port `:80` in a container but it is mapped to `:8080` on the host, the example above would redirect `http://www.localhost:8080` to `http://localhost:80`. This is because Docker changes port `:8080` to `:80` before Caddy ever sees it, so in a container Caddy is actually redirecting `http://www.localhost` to `http://localhost` (port `:80` is dropped because it is the default http port).
+There are a few things you need to watch out for if you use this configuration.
 
-**You can't use `HOSTNAME` for the environment variable inside the container.** The Caddy container already has an environment variable called `HOSTNAME`, and it cannot be overwritten.
+**The `www` to non-`www` redirect won't work correctly if you're mapping to a different port on the host when running inside a container.** If Caddy is running on port `:80` in a container but it is mapped to `:8080` on the host, the example above would redirect `http://www.localhost:8080` to `http://localhost:80`. This is because Docker maps the host port `:8080` to `:80` before Caddy ever sees it, so inside the container Caddy is actually redirecting `http://www.localhost:80` to `http://localhost:80`.
 
-**Testing the `www.localhost` redirect may require changes to your computer's `hosts` file.** The `www.localhost` address worked fine on my MacBook with no configuration, but your mileage may vary.
+**You can't use the environment variable `$HOSTNAME` if you're running inside of a Docker container.** The Caddy container already has an environment variable called `$HOSTNAME`, and it cannot be overwritten.
+
+**Testing the `www.localhost` redirect may require changes to your computer's `hosts` file.** The `www.localhost` address worked fine on my MacBook with no additional configuration, but your mileage may vary.
