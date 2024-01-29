@@ -25,4 +25,4 @@ http://mysite.test, https://mysite.test {
 
 ## Gotchas
 
-**When developing locally, you may need to add the domains to your system's `hosts` file if they aren't already there.**
+When developing locally, you may need to add the domains to your system's `hosts` file if they aren't already there.
