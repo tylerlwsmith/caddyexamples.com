@@ -32,6 +32,27 @@ During development, no value is needed for the `$SITE_HOSTNAME` environment vari
 
 In production, the `$SITE_HOSTNAME` environment variable should be set to the appropriate domain (example: `yoursite.com`). Caddy will then automatically provision the TLS certificates, allowing you to run the same Caddyfile in both development and production.
 
+The `{scheme}` [placeholder](https://caddyserver.com/docs/caddyfile/concepts#placeholders) will ensure that if the request used `http` (like `http://www.locahost`), it will redirect to its non-`www` counterpart with the correct scheme.
+
+If you instead wanted to redirect from non-`www` to `www`, you could use the following configuration.
+
+```Caddyfile
+www.{$SITE_HOSTNAME:localhost:80} {
+	# bind allows access to containers from host when running Caddy in Docker
+	bind 0.0.0.0
+
+	respond "Hello, world!"
+}
+
+# Handle redirects from non-www to www
+{$SITE_HOSTNAME:localhost:80} {
+	# bind allows access to containers from host when running Caddy in Docker
+	bind 0.0.0.0
+
+	redir {scheme}://www.{$SITE_HOSTNAME:localhost:80}{uri}
+}
+```
+
 ## Gotchas
 
 There are a few things you need to watch out for if you use this configuration.
