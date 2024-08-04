@@ -23,6 +23,16 @@ http://mysite.test, https://mysite.test {
 
 **Do not use this configuration in production.** There are very few responsible reasons to serve an `http` version of your production site. Only use this configuration for development.
 
+Alternatively, you can disable http-to-https redirects for all sites in your Caddyfile by adding the following block to the top of your Caddyfile (as seen in [this GitHub issue](https://github.com/caddyserver/caddy/issues/3219#issuecomment-631131568)):
+
+```Caddyfile
+{
+    auto_https disable_redirects
+}
+```
+
+Don't run this configuration in production either.
+
 ## Gotchas
 
 When developing locally, you may need to add the domains to your system's `hosts` file if they aren't already there.
