@@ -42,3 +42,14 @@ Alternatively, you can omit the [handle](https://caddyserver.com/docs/caddyfile/
 	reverse_proxy wordpress:80
 }
 ```
+
+You may wonder why we're matching most `path` directives against two different routes, using `path /posts /posts/*` instead of `path /posts*`.
+
+Using `path /posts*` could include paths that you don't intend to proxy. If we used `path /posts*` and `path /static*`, we would also match on the following routes:
+
+- `/postscript`
+- `/posts-authors`
+- `/static-electricity`
+- `/static-site-generators`
+
+This may be the desired behavior in your application, but it's probably not.
